@@ -1,0 +1,252 @@
+[
+  {
+    "number": 1,
+    "russian": "Я пошёл в библиотеку.",
+    "english": "I went to the library."
+  },
+  {
+    "number": 2,
+    "russian": "Обычно они едят мороженое.",
+    "english": "They usually eat ice cream."
+  },
+  {
+    "number": 3,
+    "russian": "Она читает книгу.",
+    "english": "She is reading a book."
+  },
+  {
+    "number": 4,
+    "russian": "Мы идём в парк.",
+    "english": "We are going to the park."
+  },
+  {
+    "number": 5,
+    "russian": "Он работает в офисе.",
+    "english": "He works in an office."
+  },
+  {
+    "number": 6,
+    "russian": "Дети играют во дворе.",
+    "english": "The children are playing in the yard."
+  },
+  {
+    "number": 7,
+    "russian": "Сегодня хорошая погода.",
+    "english": "The weather is nice today."
+  },
+  {
+    "number": 8,
+    "russian": "Я люблю кофе.",
+    "english": "I love coffee."
+  },
+  {
+    "number": 9,
+    "russian": "Они смотрят фильм.",
+    "english": "They are watching a movie."
+  },
+  {
+    "number": 10,
+    "russian": "Моя сестра учится в университете.",
+    "english": "My sister studies at the university."
+  },
+  {
+    "number": 11,
+    "russian": "Он купил новую машину.",
+    "english": "He bought a new car."
+  },
+  {
+    "number": 12,
+    "russian": "Мы путешествуем каждый год.",
+    "english": "We travel every year."
+  },
+  {
+    "number": 13,
+    "russian": "Кошка спит на диване.",
+    "english": "The cat is sleeping on the sofa."
+  },
+  {
+    "number": 14,
+    "russian": "Я готовлю ужин.",
+    "english": "I am cooking dinner."
+  },
+  {
+    "number": 15,
+    "russian": "Она поёт красивую песню.",
+    "english": "She is singing a beautiful song."
+  },
+  {
+    "number": 16,
+    "russian": "Мы ждём автобус.",
+    "english": "We are waiting for the bus."
+  },
+  {
+    "number": 17,
+    "russian": "Он играет в футбол.",
+    "english": "He is playing football."
+  },
+  {
+    "number": 18,
+    "russian": "Дети рисуют картинки.",
+    "english": "The children are drawing pictures."
+  },
+  {
+    "number": 19,
+    "russian": "Я учусь играть на гитаре.",
+    "english": "I am learning to play the guitar."
+  },
+  {
+    "number": 20,
+    "russian": "Она работает врачом.",
+    "english": "She works as a doctor."
+  },
+  {
+    "number": 21,
+    "russian": "Мы ходим в спортзал.",
+    "english": "We go to the gym."
+  },
+  {
+    "number": 22,
+    "russian": "Он читает газету.",
+    "english": "He is reading a newspaper."
+  },
+  {
+    "number": 23,
+    "russian": "Я пью чай с лимоном.",
+    "english": "I am drinking tea with lemon."
+  },
+  {
+    "number": 24,
+    "russian": "Они гуляют в лесу.",
+    "english": "They are walking in the forest."
+  },
+  {
+    "number": 25,
+    "russian": "Моя мама печёт пирог.",
+    "english": "My mom is baking a pie."
+  },
+  {
+    "number": 26,
+    "russian": "Я слушаю музыку.",
+    "english": "I am listening to music."
+  },
+  {
+    "number": 27,
+    "russian": "Она учит английский.",
+    "english": "She is learning English."
+  },
+  {
+    "number": 28,
+    "russian": "Мы смотрим телевизор.",
+    "english": "We are watching TV."
+  },
+  {
+    "number": 29,
+    "russian": "Он ездит на велосипеде.",
+    "english": "He rides a bicycle."
+  },
+  {
+    "number": 30,
+    "russian": "Дети играют в песочнице.",
+    "english": "The children are playing in the sandbox."
+  },
+  {
+    "number": 31,
+    "russian": "Я пишу письмо другу.",
+    "english": "I am writing a letter to my friend."
+  },
+  {
+    "number": 32,
+    "russian": "Она готовит завтрак.",
+    "english": "She is making breakfast."
+  },
+  {
+    "number": 33,
+    "russian": "Мы едем на море.",
+    "english": "We are going to the sea."
+  },
+  {
+    "number": 34,
+    "russian": "Он любит собак.",
+    "english": "He loves dogs."
+  },
+  {
+    "number": 35,
+    "russian": "Я читаю новости.",
+    "english": "I am reading the news."
+  },
+  {
+    "number": 36,
+    "russian": "Они играют в шахматы.",
+    "english": "They are playing chess."
+  },
+  {
+    "number": 37,
+    "russian": "Моя бабушка вяжет шарф.",
+    "english": "My grandmother is knitting a scarf."
+  },
+  {
+    "number": 38,
+    "russian": "Я занимаюсь йогой.",
+    "english": "I am doing yoga."
+  },
+  {
+    "number": 39,
+    "russian": "Она рисует пейзаж.",
+    "english": "She is painting a landscape."
+  },
+  {
+    "number": 40,
+    "russian": "Мы покупаем продукты.",
+    "english": "We are buying groceries."
+  },
+  {
+    "number": 41,
+    "russian": "Он чинит машину.",
+    "english": "He is fixing the car."
+  },
+  {
+    "number": 42,
+    "russian": "Я играю с котом.",
+    "english": "I am playing with the cat."
+  },
+  {
+    "number": 43,
+    "russian": "Они учатся плавать.",
+    "english": "They are learning to swim."
+  },
+  {
+    "number": 44,
+    "russian": "Моя сестра моет посуду.",
+    "english": "My sister is washing the dishes."
+  },
+  {
+    "number": 45,
+    "russian": "Я убираю комнату.",
+    "english": "I am cleaning the room."
+  },
+  {
+    "number": 46,
+    "russian": "Она гуляет с собакой.",
+    "english": "She is walking the dog."
+  },
+  {
+    "number": 47,
+    "russian": "Мы играем в волейбол.",
+    "english": "We are playing volleyball."
+  },
+  {
+    "number": 48,
+    "russian": "Он пишет книгу.",
+    "english": "He is writing a book."
+  },
+  {
+    "number": 49,
+    "russian": "Дети собирают листья.",
+    "english": "The children are collecting leaves."
+  },
+  {
+    "number": 50,
+    "russian": "Я помогаю маме.",
+    "english": "I am helping my mom."
+  }
+]
