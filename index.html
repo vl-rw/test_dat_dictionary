@@ -9,7 +9,7 @@ textarea {height: 50px;width: 500px;padding: 10px;border-radius:5px;}
 </style>
 </head>
 <body>
-    <h1>Лист назначений</h1>
+    
     <form method="POST" action="/">
     	<h2>Предложение</h2>
         <textarea id="ms1" name="message1" required></textarea><br>
@@ -17,135 +17,122 @@ textarea {height: 50px;width: 500px;padding: 10px;border-radius:5px;}
         <textarea id="ms2" name="message2" required></textarea><br>
     	<h2>Sentence2</h2>
         <textarea id="ms3" name="message3" required></textarea><br>
-	
     </form>
 <button onclick="pressed_btn(this)" id="b1"></button>
 <button onclick="pressed_btn(this)" id="b2"></button>
 <button onclick="pressed_btn(this)" id="b3"></button>
 <button onclick="pressed_btn(this)" id="b4"></button><br>
-	<button onclick="pressed_btn(this)" id="b5"></button>
+
+<button onclick="pressed_btn(this)" id="b5"></button>
 <button onclick="pressed_btn(this)" id="b6"></button>
 <button onclick="pressed_btn(this)" id="b7"></button>
 <button onclick="pressed_btn(this)" id="b8"></button><br><br><br><br>
 
 
 <button onclick="test()">CHECK</button>
+
+
 <script>
 
 function test() {
 if ((ms2.value+' ') == ms3.value) {
-
-alert ('You are right!');
-
-}else {
-
-alert ('WRONG!');
-}
-;
+	alert ('You are right!');
+	}else {
+	alert ('WRONG!');
+	};
 }
 
 function pressed_btn(id) {
-console.log(id);
-ms3.value += id.textContent + ' ';
+	//console.log(id);
+	ms3.value += id.textContent + ' ';
 }
 
-answer = '';
+
+
 
 fetch('sentences.json')
+
 .then(response => {
-if (!response.ok) throw new Error('gtgtgtg');
-return response.json();
+	if (!response.ok) throw new Error('sentences.json is fucked');
+	return response.json();
 })
+
 .then(data =>{
-const list = data;
-//console.log(list);
+	const list = data;
 
-function get_a_line() {
-return Math.round(50*Math.random());
-};
+	function get_a_line() {
+		return Math.round(50*Math.random());
+	};
 
+	line = get_a_line();
+	ms1.value = list[line]["russian"];
+	ms2.value = list[line]["english"];
 
-
-
-line = get_a_line();
-ms1.value = list[line]["russian"];
-ms2.value = list[line]["english"];
-
-let arr = list[line]["english"].split(" ");
+	let arr = list[line]["english"].split(" ");
 
 
-arr.forEach(function(item, index) {
-  console.log(`${index}: ${item}`);
-  //ms3.value += item;
-});
+	arr.forEach(function(item, index) {
+		//console.log(`${index}: ${item}`);
+	});
 
-let randomSent = ' '+list[get_a_line()]["english"]+' '+list[get_a_line()]["english"]+' '+list[get_a_line()]["english"]+' '+list[get_a_line()]["english"];
-let pool = randomSent.split(' ');
-pool.splice(0, 1);
-console.log(pool);
+	let randomSent = ' '+list[get_a_line()]["english"];
+	randomSent += ' '+list[get_a_line()]["english"];
+	randomSent += ' '+list[get_a_line()]["english"];
+	randomSent += ' '+list[get_a_line()]["english"];
+	randomSent += ' '+list[get_a_line()]["english"]
+
+	let pool = randomSent.split(' ');
+	pool.splice(0, 1);
+	console.log(pool);
 
 
-async function prolongating(arr, pool) {
-  const result = arr;
-  const available = pool; // копируем пул, чтобы не портить оригинал
-  
-  while (result.length < 8) {
-    // Случайный индекс из оставшихся в пуле
-    const randIndex = Math.floor(Math.random() * available.length);
-    const word = available[randIndex];
+	async function prolongating(arr, pool) {
+		const result = arr;
+		const available = pool; // копируем пул, чтобы не портить оригинал
+  		while (result.length < 8) {
+			// Случайный индекс из оставшихся в пуле
+			const randIndex = Math.floor(Math.random() * available.length);
+			const word = available[randIndex];
+			//console.log(randIndex)
+			//console.log(available[randIndex])
     
-    result.push(word);
-    available.splice(randIndex, 1); // удаляем использованное слово из пула
-  }
+    		result.push(word);
+    		available.splice(randIndex, 1); // удаляем использованное слово из пула
+ 		};
   
-  return result;
-}
+		//console.log(result);
+  		return result;
+	};
 
-final_arr =  prolongating(arr, pool)
-.then(data => {
-    console.log(data);
-let buttons = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8'];
+	final_arr =  prolongating(arr, pool)
+		.then(data => {
+    			console.log(data);
+			let buttons = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8'];
 
-for (let i =0; i<8; i++) {
+			let i=0;
 
-let r;
+				//let r;
 
-while (document.getElementById(buttons[r])==null) {
-  r=buttons.length + Math.round(Math.random()) -1;
-}
-//r=buttons.length + Math.round(Math.random()) -1;
- console.log(r);
- console.log(buttons.length);
-let el = document.getElementById(buttons[r]);
- console.log(buttons[r]);
- console.log(el);
-el.textContent = data[i];
- console.log(data[i]);
- console.log(buttons);
-buttons.splice(r, 1);
- console.log(buttons);
+			while (buttons.length > 0) {
+  				//let r=buttons.length + Math.round(Math.random()-1) ;
+				let r=Math.floor(buttons.length*Math.random());
+				console.log(r);
+				let el = document.getElementById(buttons[r]);
+				if (el == null) el = document.getElementById(buttons[r-1]);
+				console.log(el);
+				el.textContent = data[i];
+				console.log(data[i]);
+				console.log(buttons);
+				buttons.splice(r,1);
+				console.log(buttons);
+				i++;
+			};
+  		})
 
-};
-  })
+
   .catch(error => console.error('Ошибка:', error));
-
-
-
-
-/*
-const buttons = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8'];
-
-for (let i =0; i<9; i++) {
-
-r=Math.round(1+7*Math.random());
-let el = document.getElementById(buttons[r]);
-el.textContent = final_arr[i];
-buttons.splice(r, 1);
-
-};
-
-*/
 })
+
 .catch(error => {
 console.error(error);
 });
