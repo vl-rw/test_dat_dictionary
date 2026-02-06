@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Форма</title>
+    <title>English sentences</title>
 <style>
 body {background-color: grey; margin: auto; padding: 20%;}
 textarea {height: 50px;width: 500px;padding: 10px;border-radius:5px;}
@@ -15,7 +15,7 @@ textarea {height: 50px;width: 500px;padding: 10px;border-radius:5px;}
         <textarea id="ms1" name="message1" required></textarea><br>
     	<h2>Sentence</h2>
         <textarea id="ms2" name="message2" required></textarea><br>
-    	<h2>Sentence2</h2>
+    	<h2>Input from a user</h2>
         <textarea id="ms3" name="message3" required></textarea><br>
     </form>
 <button onclick="pressed_btn(this)" id="b1"></button>
@@ -36,9 +36,11 @@ textarea {height: 50px;width: 500px;padding: 10px;border-radius:5px;}
 
 function test() {
 if ((ms2.value+' ') == ms3.value) {
-	alert ('You are right!');
+		alert ('You are right!');
+		location.reload();
 	}else {
-	alert ('WRONG!');
+		alert ('WRONG!');
+		ms3.value = '';
 	};
 }
 
@@ -140,3 +142,4 @@ console.error(error);
 </script>
 </body>
 </html>
+
