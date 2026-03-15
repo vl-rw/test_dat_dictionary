@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Простая страница с озвучкой</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .article {
+      margin-bottom: 2rem;
+    }
+    button {
+      font-size: 1.1rem;
+      padding: 10px 24px;
+      cursor: pointer;
+      background: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      margin: 1rem 0;
+    }
+    button:hover {
+      background: #0055aa;
+    }
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+    #status {
+      color: #555;
+      font-size: 0.95rem;
+      min-height: 1.4em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Магнитное поле Земли и загадочные области</h1>
+
+  <div class="article" id="text-to-read">
+    <p>Учёные обнаружили, что две крупные аномалии магнитного поля Земли — Южно-Атлантическая и Тихоокеанская — могут быть связаны с процессами в глубинах мантии.</p>
+    <p>Эти регионы характеризуются значительным ослаблением магнитного поля. Исследователи предполагают, что причиной являются необычные структуры на границе ядра и мантии под Африкой и Тихим океаном.</p>
+    <p>По мнению авторов работы, такие зоны влияют на поведение геодинамо и могут быть ключом к пониманию инверсий магнитного поля в истории планеты.</p>
+  </div>
+
+  <button id="speakBtn">Озвучить текст</button>
+  <div id="status"></div>
+
+  <script>
+    // Ленивая загрузка — функция инициализируется только при первом клике
+    let synth = null;
+    let utterance = null;
+    let isSpeaking = false;
+
+    document.getElementById('speakBtn').addEventListener('click', () => {
+      // Один раз инициализируем
+      if (!synth) {
+        if (!window.speechSynthesis) {
+          document.getElementById('status').textContent = 'Ваш браузер не поддерживает озвучку речи';
+          document.getElementById('speakBtn').disabled = true;
+          return;
+        }
+
+        synth = window.speechSynthesis;
+        
+        // Берём весь текст один раз
+        const text = document.getElementById('text-to-read').innerText.trim();
+        utterance = new SpeechSynthesisUtterance(text);
+        
+        // Настройки (можно менять)
+        utterance.lang = 'ru-RU';
+        utterance.volume = 1.0;   // 0..1
+        utterance.rate = 1.0;     // 0.1 .. 10
+        utterance.pitch = 1.0;    // 0 .. 2
+
+        // Пытаемся выбрать хороший русский голос (если есть)
+        const voices = synth.getVoices();
+        const ruVoice = voices.find(v => v.lang.startsWith('ru')) || 
+                       voices.find(v => v.lang === 'ru-RU') ||
+                       voices.find(v => v.name.includes('Yandex') || v.name.includes('Google'));
+        
+        if (ruVoice) {
+          utterance.voice = ruVoice;
+        }
+
+        // События
+        utterance.onstart = () => {
+          isSpeaking = true;
+          document.getElementById('status').textContent = 'Озвучивается...';
+          document.getElementById('speakBtn').textContent = 'Стоп';
+        };
+
+        utterance.onend = () => {
+          isSpeaking = false;
+          document.getElementById('status').textContent = 'Озвучивание завершено';
+          document.getElementById('speakBtn').textContent = 'Озвучить текст';
+        };
+
+        utterance.onerror = (e) => {
+          document.getElementById('status').textContent = 'Ошибка: ' + e.error;
+          isSpeaking = false;
+          document.getElementById('speakBtn').textContent = 'Озвучить текст';
+        };
+      }
+
+      // Переключение play / stop
+      if (isSpeaking) {
+        synth.cancel();
+        isSpeaking = false;
+        document.getElementById('speakBtn').textContent = 'Озвучить текст';
+        document.getElementById('status').textContent = 'Озвучивание остановлено';
+      } else {
+        synth.speak(utterance);
+      }
+    });
+
+    // Для Firefox иногда нужно подождать загрузки голосов
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = () => {
+        // можно здесь дополнительно выбрать голос, если нужно
+      };
+    }
+  </script>
+
+</body>
+</html>
