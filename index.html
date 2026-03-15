@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Простое распознавание речи</title>
+  <title>Автоматическое распознавание речи и озвучка текста</title>
   <style>
     body {
       font-family: system-ui, sans-serif;
@@ -38,75 +38,101 @@
 </head>
 <body>
 
-  <h1>Распознавание речи</h1>
-  
+<h1>Автоматическое распознавание речи и озвучка текста</h1>
+
+<div id="buttons-container">
   <button id="start">▶ Начать слушать</button>
   <button id="stop" disabled>■ Стоп</button>
-  
-  <div id="result">Здесь появится текст…</div>
-  
-  <div class="info">
-    Работает в Chrome / Edge.<br>
-    Нужно разрешение на микрофон.<br>
-    Требуется интернет (аудио отправляется на сервера).
-  </div>
+</div>
 
-  <script>
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    
-    if (!recognition) {
-      document.body.innerHTML += '<p style="color:red">Ваш браузер не поддерживает распознавание речи :(</p>';
-    } else {
-      recognition.lang = 'ru-RU';           // русский язык (можно 'en-US', 'de-DE' и т.д.)
-      recognition.interimResults = true;    // показывать промежуточные результаты
-      recognition.maxAlternatives = 1;      // сколько вариантов предлагать (обычно 1 хватает)
-      // recognition.continuous = true;     // можно раскомментировать — будет слушать без остановки
+<div id="result">Здесь появится распознанный текст…</div>
 
-      const startBtn = document.getElementById('start');
-      const stopBtn  = document.getElementById('stop');
-      const result   = document.getElementById('result');
+<div class="info">
+  Работает в Chrome / Edge.<br>
+  Нужно разрешение на микрофон.<br>
+  Требуется интернет (аудио отправляется на сервера).<br><br>
+  После распознавания произнесённого текста будет воспроизведён ответ.
+</div>
 
-      startBtn.onclick = () => {
-        recognition.start();
-        startBtn.disabled = true;
-        stopBtn.disabled  = false;
-        result.textContent = "Слушаю... Говорите!";
-      };
+<script>
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+if (!recognition) {
+  document.body.innerHTML += '<p style="color:red">Ваш браузер не поддерживает распознавание речи :(</p>';
+} else {
+  recognition.lang = 'ru-RU';               // русский язык
+  recognition.interimResults = true;       // показывать промежуточные результаты
+  recognition.maxAlternatives = 1;         // количество альтернативных результатов
+  // recognition.continuous = true;        // непрерывное прослушивание
 
-      stopBtn.onclick = () => {
-        recognition.stop();
-      };
+  const startBtn = document.getElementById('start');
+  const stopBtn  = document.getElementById('stop');
+  const result   = document.getElementById('result');
 
-      recognition.onresult = (event) => {
-        let interim = '';
-        let final   = '';
+  startBtn.onclick = () => {
+    recognition.start();
+    startBtn.disabled = true;
+    stopBtn.disabled  = false;
+    result.textContent = "Слушаю... Говорите!";
+  };
 
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            final += event.results[i][0].transcript;
-          } else {
-            interim += event.results[i][0].transcript;
-          }
-        }
+  stopBtn.onclick = () => {
+    recognition.stop();
+  };
 
-        result.textContent = final + (interim ? `\n(пока думаю: ${interim})` : '');
-      };
+  recognition.onresult = (event) => {
+    let interim = '';
+    let final   = '';
 
-      recognition.onend = () => {
-        startBtn.disabled = false;
-        stopBtn.disabled  = true;
-        if (result.textContent.includes('Слушаю')) {
-          result.textContent = 'Закончил слушать.';
-        }
-      };
-
-      recognition.onerror = (event) => {
-        result.textContent = `Ошибка: ${event.error}\n(часто — нет интернета или нет разрешения на микрофон)`;
-        startBtn.disabled = false;
-        stopBtn.disabled  = true;
-      };
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        final += event.results[i][0].transcript;
+      } else {
+        interim += event.results[i][0].transcript;
+      }
     }
-  </script>
+
+    result.textContent = final + (interim ? `\n(пока думаю: ${interim})` : '');
+
+    // Произносим стандартную фразу после каждого распознавания
+    if (final && !interim) {
+      speakPhrase("Твой запрос получем и распознан. Жаль, у меня нет мозгов, чтобы ответить. Попробуй ещё раз!");
+    }
+  };
+
+  function speakPhrase(text) {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ru-RU';
+    utterance.volume = 1.0;
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+
+    synth.speak(utterance);
+
+    // Добавляем обработчик события окончания озвучки
+    utterance.onend = () => {
+      console.log("Фраза успешно произнесена");
+      
+      // Начинаем новое распознавание после успешной озвучки
+      recognition.start();
+    };
+  }
+
+  recognition.onend = () => {
+    startBtn.disabled = false;
+    stopBtn.disabled  = true;
+    if (result.textContent.includes('Слушаю')) {
+      result.textContent = 'Закончил слушать.';
+    }
+  };
+
+  recognition.onerror = (event) => {
+    result.textContent = `Ошибка: ${event.error}\n(часто — нет интернета или нет разрешения на микрофон)`;
+    startBtn.disabled = false;
+    stopBtn.disabled  = true;
+  };
+}
+</script>
 
 </body>
 </html>
