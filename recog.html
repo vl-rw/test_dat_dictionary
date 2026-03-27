@@ -14,6 +14,9 @@
       color: white;
       background:  #1c1c1c;
     }
+    h1 {
+      coor: #e65535;
+    }
    button {
       font-size: 1.1em;
       padding: 14px 32px;
@@ -27,7 +30,7 @@
       min-height: 120px;
       padding: 20px;
       background: #4a4949;
-      border: 1px solid #a0d0ff;
+      border: 1px solid #e65535;
       border-radius: 8px;
       white-space: pre-wrap;
       text-align: left;
@@ -93,19 +96,19 @@
           }
         }
 
-        result.textContent = final + (interim ? `\n(пока думаю: ${interim})` : '');
+        result.textContent += final + (interim ? `\n(пока думаю: ${interim})` : '');
       };
 
       recognition.onend = () => {
         startBtn.disabled = false;
         stopBtn.disabled  = true;
         if (result.textContent.includes('Слушаю')) {
-          result.textContent = 'Закончил слушать.';
+          result.textContent += 'Закончил слушать.';
         }
       };
 
       recognition.onerror = (event) => {
-        result.textContent = `Ошибка: ${event.error}\n(часто — нет интернета или нет разрешения на микрофон)`;
+        result.textContent += `Ошибка: ${event.error}\n(часто — нет интернета или нет разрешения на микрофон)`;
         startBtn.disabled = false;
         stopBtn.disabled  = true;
       };
