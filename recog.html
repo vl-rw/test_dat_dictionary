@@ -65,7 +65,7 @@
       document.body.innerHTML += '<p style="color:red">Ваш браузер не поддерживает распознавание речи :(</p>';
     } else {
       recognition.lang = 'ru-RU';           // русский язык (можно 'en-US', 'de-DE' и т.д.)
-      recognition.interimResults = true;    // показывать промежуточные результаты
+      recognition.interimResults = false;    // не показывать промежуточные результаты
       recognition.maxAlternatives = 1;      // сколько вариантов предлагать (обычно 1 хватает)
       recognition.continuous = true;     // можно раскомментировать — будет слушать без остановки
 
