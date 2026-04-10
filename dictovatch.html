@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Диктовачъ</title>
+  <style>
+    body{font-family:system-ui;font-size:16px;margin:2rem; background-color: #DDD;  height:75vh; }
+    .container{border-radius: 20px; margin: 20px; padding: 10px; border: 2px black solid; background-color: #AAA; height: 80%;}
+    #prompt{width:100%; height: 70%;}
+    .circle {height: 80px; width:100px; border-radius: 50px; background-color: red;};
+  </style>
+</head>
+<body>
+<div class='container'>
+<h1>Диктовачъ</h1>
+<textarea id="prompt" placeholder="Type your prompt…"></textarea><br>
+<div id="buttons-container">
+  <button class="circle" onclick="sp(3)">⏮ предыдущая</button>
+  <button class="circle" onclick="sp(1)">▶ повторить</button>
+  <button class="circle" onclick="sp(2)">⏭ следущая </button>
+</div>
+</div>
+<p>All right reserved for Romanov Vladimir Victorovich</p>
+<script>
+// привет. как дела?
+let language =  'ru-RU'; 
+let array = [];
+let number = 0;
+document.getElementById('prompt').value;
+let text = '';
+function sp(a) {
+text = document.getElementById('prompt').value;
+array = text.split('.');
+if (a==1) {if (array.length == 0) {speakPhrase(sentence)} else {speakPhrase(array[number]);}};
+if (a==2) { number++; if (array[number]==undefined) {speakPhrase('всё, конец');number--;} else {speakPhrase(array[number]);}};
+if (a==3) { number--; if (array[number]==undefined) {speakPhrase('всё, конец');number++;} else {speakPhrase(array[number]);}};
+};
+console.log(number);
+//if (array.length == 0) speakPhrase(sentence);
+function speakPhrase(text) {
+    if (text=='') text = 'Так ведь нет нихуя́!';
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = language ;
+    utterance.volume = 1.0;
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    synth.speak(utterance);
+    console.log(text);
+    console.log("Фраза успешно произнесена");
+};
+//speakPhrase(sentence);
+</script>
+</body>
+</html>
